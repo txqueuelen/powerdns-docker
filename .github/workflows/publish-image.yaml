@@ -1,0 +1,37 @@
+name: Release image
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  get-versions:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract PowerDNS version
+        id: version
+        run: |
+          echo "powerdns=$(sed -nr 's/^ARG PDNS_VERSION=(.*)$/\1/p' Dockerfile)" >> "$GITHUB_OUTPUT"
+      - name: Generate tag
+        id: tag
+        run: |
+          echo "bare=${{ steps.version.outputs.powerdns }}" >> "$GITHUB_OUTPUT"
+          echo "full=${{ steps.version.outputs.powerdns }}-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+    outputs:
+      tags: |
+        ghcr.io/${{ github.repository }}/powerdns:v${{ steps.tag.outputs.bare }}
+        ghcr.io/${{ github.repository }}/powerdns:v${{ steps.tag.outputs.full }}
+
+  release-image:
+    needs: [get-versions]
+    uses: txqueuelen/.github/.github/workflows/common-docker-releaser.yaml@reusable-workflows/common-docker-releaser
+    with:
+      tags: ${{ needs.get-versions.outputs.tags }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
