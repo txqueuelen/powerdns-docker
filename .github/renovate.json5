@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "regexManagers": [
+    {
+      // Update PowerDNS tag in the Dockerfile.
+      "fileMatch": [ "^Dockerfile$" ],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "PowerDNS/pdns",
+      "extractVersionTemplate": "^auth-(?<version>.*)$",
+      "matchStrings": [
+        "ARG PDNS_VERSION=(?<currentValue>.*)"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      // Group all debian images together.
+      "matchPackagePatterns": [
+        "debian"
+      ],
+      "matchPaths": [
+        "Dockerfile"
+      ],
+      "groupName": "Debian base images",
+    }
+  ]
+}
