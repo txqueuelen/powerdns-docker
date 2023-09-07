@@ -2,7 +2,9 @@ name: Release image
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - renovate/**
 
 permissions:
   contents: read
@@ -30,8 +32,9 @@ jobs:
 
   release-image:
     needs: [get-versions]
-    uses: txqueuelen/.github/.github/workflows/common-docker-releaser.yaml@reusable-workflows/common-docker-releaser
+    uses: txqueuelen/.github/.github/workflows/common-docker-releaser.yaml@main
     with:
       tags: ${{ needs.get-versions.outputs.tags }}
+      push: ${{ github.ref_name == github.event.repository.default_branch }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

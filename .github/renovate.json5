@@ -1,7 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    "github>txqueuelen/.github//renovate/automerge-workflows-all.json",
+
+    "github>txqueuelen/.github//renovate/automerge-docker-digest.json",
+
+    "github>txqueuelen/.github//renovate/automerge-all-patch.json",
+    "github>txqueuelen/.github//renovate/automerge-all-minor.json"
   ],
   "regexManagers": [
     {
@@ -18,13 +24,9 @@
   "packageRules": [
     {
       // Group all debian images together.
-      "matchPackagePatterns": [
-        "debian"
-      ],
-      "matchPaths": [
-        "Dockerfile"
-      ],
-      "groupName": "Debian base images",
+      "matchPackagePatterns": [ "debian" ],
+      "matchPaths": [ "Dockerfile" ],
+      "groupName": "Debian base images"
     }
   ]
 }
