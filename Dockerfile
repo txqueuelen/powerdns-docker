@@ -1,5 +1,5 @@
 FROM debian:12@sha256:b4042f895d5d1f8df415caebe7c416f9dbcf0dc8867abb225955006de50b21f3 as builder
-ARG PDNS_VERSION=4.7.4
+ARG PDNS_VERSION=4.8.2
 
 WORKDIR /build
 RUN apt update && \
