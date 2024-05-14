@@ -1,4 +1,4 @@
-FROM debian:12@sha256:1aadfee8d292f64b045adb830f8a58bfacc15789ae5f489a0fedcd517a862cb9 as builder
+FROM debian:12@sha256:fac2c0fd33e88dfd3bc88a872cfb78dcb167e74af6162d31724df69e482f886c as builder
 ARG PDNS_VERSION=4.9.0
 
 WORKDIR /build
@@ -12,7 +12,7 @@ RUN ./configure --with-modules='bind gsqlite3' && \
     make install
 RUN mkdir -p /usr/local/share/pdns && cp modules/gsqlite3backend/schema.sqlite3.sql /usr/local/share/pdns/schema.sqlite3.sql
 
-FROM debian:12-slim@sha256:155280b00ee0133250f7159b567a07d7cd03b1645714c3a7458b2287b0ca83cb
+FROM debian:12-slim@sha256:804194b909ef23fb995d9412c9378fb3505fe2427b70f3cc425339e48a828fca
 
 RUN apt update && apt install -y curl sqlite3 luajit libboost-dev libboost-program-options-dev && apt clean
 
