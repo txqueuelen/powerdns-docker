@@ -1,4 +1,4 @@
-FROM debian:12@sha256:17122fe3d66916e55c0cbd5bbf54bb3f87b3582f4d86a755a0fd3498d360f91b AS builder
+FROM debian:12@sha256:6001f38763856a0181c479eb4844467ea3dcb843335e0d8404e6b366a271c9ae AS builder
 ARG PDNS_VERSION=4.9.2
 
 WORKDIR /build
@@ -32,7 +32,7 @@ RUN mkdir -p /usr/local/share/pdns && \
     cp modules/ldapbackend/pdns-domaininfo.schema /usr/local/share/pdns/ldap/pdns-domaininfo.schema && \
     cp modules/ldapbackend/dnsdomain2.schema /usr/local/share/pdns/ldap/dnsdomain2.schema
 
-FROM debian:12-slim@sha256:1537a6a1cbc4b4fd401da800ee9480207e7dc1f23560c21259f681db56768f63
+FROM debian:12-slim@sha256:d365f4920711a9074c4bcd178e8f457ee59250426441ab2a5f8106ed8fe948eb
 
 RUN apt update && \
     apt install -y curl libboost-dev libboost-program-options-dev libsodium23 \
