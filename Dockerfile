@@ -1,5 +1,5 @@
 FROM debian:12@sha256:c66c66fac809bfb56a8001b12f08181a49b6db832d2c8ddabe22b6374264055f AS builder
-ARG PDNS_VERSION=4.9.12
+ARG PDNS_VERSION=5.0.2
 
 WORKDIR /build
 # Make pdns build dependencies
