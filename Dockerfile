@@ -1,5 +1,5 @@
 FROM debian:bookworm-20260421@sha256:8a8cd02c5912770b4980228a54d4aff9e4f986f1eb2525d2d371dec5232cefcc AS builder
-ARG PDNS_VERSION=4.9.13
+ARG PDNS_VERSION=4.9.14
 
 WORKDIR /build
 # Make pdns build dependencies
